@@ -17,7 +17,7 @@ module.exports = class AuthUseCase {
     if (!user) {
       return null
     }
-    this.encrypter.compare(password, user.password)
+    await this.encrypter.compare(password, user.password)
     return null
   }
 }
