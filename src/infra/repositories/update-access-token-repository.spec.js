@@ -44,12 +44,6 @@ describe('UpdateAccessToken Repository', () => {
     expect(updatedFakeUser.accessToken).toBe('valid_token')
   })
 
-  test('Should throw if no user model is provided', async () => {
-    const sut = new UpdateAccessTokenRepository()
-    const promise = sut.update(fakeUserId, 'valid_token')
-    expect(promise).rejects.toThrow(new MissingParamError('userModel'))
-  })
-
   test('Should throw if no params are provided', async () => {
     const { sut } = makeSut()
     expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
