@@ -9,6 +9,12 @@ module.exports = class UpdateAccessTokenRepository {
     if (!this.userModel) {
       throw new MissingParamError('userModel')
     }
+    if (!userId) {
+      throw new MissingParamError('userId')
+    }
+    if (!accessToken) {
+      throw new MissingParamError('accessToken')
+    }
     await this.userModel.updateOne({
       _id: userId
     }, {

@@ -54,4 +54,17 @@ describe('UpdateAccessToken Repository', () => {
     const promise = sut.update(fakeUser.ops[0]._id, 'valid_token')
     expect(promise).rejects.toThrow(new MissingParamError('userModel'))
   })
+
+  test('Should throw if no params are provided', async () => {
+    const { sut, userModel } = makeSut()
+    const fakeUser = await userModel.insertOne({
+      age: 50,
+      name: 'any_name',
+      state: 'any_state',
+      email: 'valid_email@mail.com',
+      password: 'hashed_password'
+    })
+    expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
+    expect(sut.update(fakeUser.ops[0]._id)).rejects.toThrow(new MissingParamError('accessToken'))
+  })
 })
