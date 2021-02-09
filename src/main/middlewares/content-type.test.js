@@ -2,12 +2,22 @@ const request = require('supertest')
 const app = require('../config/app')
 
 describe('Content Type Middleware', () => {
-  test('Should return JSON content type as default', async () => {
-    app.get('/test_content_type', (req, res) => {
+  test('Should return JSON content-type as default', async () => {
+    app.get('/test_content_type_default', (req, res) => {
       res.send('')
     })
     await request(app)
-      .get('/test_content_type')
+      .get('/test_content_type_default')
       .expect('content-type', /json/)
+  })
+
+  test('Should return XML content-type if forced', async () => {
+    app.get('/test_content_type_xml', (req, res) => {
+      res.type('xml')
+      res.send('')
+    })
+    await request(app)
+      .get('/test_content_type_xml')
+      .expect('content-type', /xml/)
   })
 })
